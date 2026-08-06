@@ -925,7 +925,7 @@ async def check_chat_content(message: types.Message):
 
 async def main():
     logging.basicConfig(level=logging.INFO)
-    await start_web_server()
+    asyncio.create_task(start_web_server())
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
