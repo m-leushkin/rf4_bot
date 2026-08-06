@@ -1,3 +1,5 @@
+import os
+from aiohttp import web
 import asyncio
 import logging
 import math
@@ -25,6 +27,14 @@ TIKTOK_LINK = "https://www.tiktok.com/@admiral_rr4?_r=1&_t=ZS-98ct8BmhqMa"
 session = AiohttpSession(timeout=60)
 bot = Bot(token=BOT_TOKEN, session=session)
 dp = Dispatcher(storage=MemoryStorage())
+async def start_web_server():
+    app = web.Application()
+    app.router.add_get('/', lambda r: web.Response(text="OK"))
+    runner = web.AppRunner(app)
+    await runner.setup()
+    port = int(os.environ.get("PORT", 10000))
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
 
 ITEMS_PER_PAGE = 12
 
@@ -915,6 +925,7 @@ async def check_chat_content(message: types.Message):
 
 async def main():
     logging.basicConfig(level=logging.INFO)
+    await start_web_server()
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
