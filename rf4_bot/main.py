@@ -14,7 +14,7 @@ from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery, InputMediaPhoto, Message
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-BOT_TOKEN = "8836079710:AAGyv8vhyOTqvZaR5wAEEEEGLzYUIkXChk0"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_ID = -1004409881507
 ADMIN_ID = 7468058583
 
